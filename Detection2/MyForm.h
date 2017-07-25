@@ -3,6 +3,7 @@
 #include"highgui.h"
 #include"time.h"
 #include"Math.h"
+
 #include<iostream>
 #include<fstream>
      
@@ -25,7 +26,7 @@ namespace Detection2 {
 	cv::Point LT, RB;
 	Mat Img_ROI;
 	float time_data[1900] = {0};
-	float BGRData[1900][3] = {0};
+	float BGRData[1900] = {0};
 #define PI       3.14159265358979323846 
 struct compxReIm { float re, im; };
 struct compxATheta { float A,theta;};
@@ -65,7 +66,7 @@ struct compxATheta { float A,theta;};
 	private:bool f_setROI,f_ROI_successed;
 	private: System::Windows::Forms::Label^  label1;
 	private: System::Windows::Forms::Label^  txt_ShowCountDown;
-	private: System::Windows::Forms::DataVisualization::Charting::Chart^  chart_RGB;
+
 	private: System::Windows::Forms::Button^  Btn_analysis;
 	private: System::Windows::Forms::Label^  label2;
 	private: System::Windows::Forms::Button^  Btn_Detect;
@@ -83,11 +84,6 @@ struct compxATheta { float A,theta;};
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
-			System::Windows::Forms::DataVisualization::Charting::ChartArea^  chartArea1 = (gcnew System::Windows::Forms::DataVisualization::Charting::ChartArea());
-			System::Windows::Forms::DataVisualization::Charting::Legend^  legend1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Legend());
-			System::Windows::Forms::DataVisualization::Charting::Series^  series1 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^  series2 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
-			System::Windows::Forms::DataVisualization::Charting::Series^  series3 = (gcnew System::Windows::Forms::DataVisualization::Charting::Series());
 			this->pictureBox1 = (gcnew System::Windows::Forms::PictureBox());
 			this->Btn_Start = (gcnew System::Windows::Forms::Button());
 			this->Btn_Stop = (gcnew System::Windows::Forms::Button());
@@ -95,11 +91,9 @@ struct compxATheta { float A,theta;};
 			this->Btn_Detect = (gcnew System::Windows::Forms::Button());
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->txt_ShowCountDown = (gcnew System::Windows::Forms::Label());
-			this->chart_RGB = (gcnew System::Windows::Forms::DataVisualization::Charting::Chart());
 			this->Btn_analysis = (gcnew System::Windows::Forms::Button());
 			this->label2 = (gcnew System::Windows::Forms::Label());
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->BeginInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_RGB))->BeginInit();
 			this->SuspendLayout();
 			// 
 			// pictureBox1
@@ -147,7 +141,7 @@ struct compxATheta { float A,theta;};
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(840, 568);
+			this->label1->Location = System::Drawing::Point(761, 568);
 			this->label1->Name = L"label1";
 			this->label1->Size = System::Drawing::Size(41, 15);
 			this->label1->TabIndex = 4;
@@ -156,41 +150,11 @@ struct compxATheta { float A,theta;};
 			// txt_ShowCountDown
 			// 
 			this->txt_ShowCountDown->AutoSize = true;
-			this->txt_ShowCountDown->Location = System::Drawing::Point(898, 568);
+			this->txt_ShowCountDown->Location = System::Drawing::Point(808, 568);
 			this->txt_ShowCountDown->Name = L"txt_ShowCountDown";
 			this->txt_ShowCountDown->Size = System::Drawing::Size(21, 15);
 			this->txt_ShowCountDown->TabIndex = 5;
 			this->txt_ShowCountDown->Text = L"60";
-			// 
-			// chart_RGB
-			// 
-			chartArea1->Name = L"ChartArea1";
-			this->chart_RGB->ChartAreas->Add(chartArea1);
-			legend1->Name = L"Legend1";
-			this->chart_RGB->Legends->Add(legend1);
-			this->chart_RGB->Location = System::Drawing::Point(860, 7);
-			this->chart_RGB->Name = L"chart_RGB";
-			series1->ChartArea = L"ChartArea1";
-			series1->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
-			series1->Color = System::Drawing::Color::Blue;
-			series1->Legend = L"Legend1";
-			series1->Name = L"B_average";
-			series2->ChartArea = L"ChartArea1";
-			series2->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
-			series2->Color = System::Drawing::Color::Green;
-			series2->Legend = L"Legend1";
-			series2->Name = L"G_average";
-			series3->ChartArea = L"ChartArea1";
-			series3->ChartType = System::Windows::Forms::DataVisualization::Charting::SeriesChartType::Spline;
-			series3->Color = System::Drawing::Color::Red;
-			series3->Legend = L"Legend1";
-			series3->Name = L"R_average";
-			this->chart_RGB->Series->Add(series1);
-			this->chart_RGB->Series->Add(series2);
-			this->chart_RGB->Series->Add(series3);
-			this->chart_RGB->Size = System::Drawing::Size(510, 558);
-			this->chart_RGB->TabIndex = 6;
-			this->chart_RGB->Text = L"chart1";
 			// 
 			// Btn_analysis
 			// 
@@ -215,10 +179,9 @@ struct compxATheta { float A,theta;};
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 15);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(1405, 622);
+			this->ClientSize = System::Drawing::Size(1790, 622);
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->Btn_analysis);
-			this->Controls->Add(this->chart_RGB);
 			this->Controls->Add(this->txt_ShowCountDown);
 			this->Controls->Add(this->label1);
 			this->Controls->Add(this->Btn_Detect);
@@ -228,7 +191,6 @@ struct compxATheta { float A,theta;};
 			this->Name = L"MyForm";
 			this->Text = L"MyForm";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
-			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->chart_RGB))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
@@ -257,10 +219,12 @@ public:void ShowImage(System::Windows::Forms::PictureBox^ PBox, cv::Mat Image)
 	}
 private: System::Void Btn_Start_Click(System::Object^  sender, System::EventArgs^  e) {
 		cap.open(0);
-		timer_Capture->Interval =2;
+		cap.set(CV_CAP_PROP_FRAME_WIDTH, 480);
+		cap.set(CV_CAP_PROP_FRAME_HEIGHT, 360);
+		timer_Capture->Interval =100;
 		timer_Capture->Enabled = true;
 		timer_Capture->Start();
-		start = clock();
+		
 	}
 private: System::Void timer_Capture_Tick(System::Object^  sender, System::EventArgs^  e) {
 		Mat frame;
@@ -277,37 +241,30 @@ private: System::Void timer_Capture_Tick(System::Object^  sender, System::EventA
 			cvtColor(frame, frame_gray, COLOR_BGR2GRAY);
 			equalizeHist(frame_gray, frame_gray);
 			face_cascade.detectMultiScale(frame_gray, faces, 1.1, 2, 0 | CV_HAAR_SCALE_IMAGE, cv::Size(30, 30));//FPS下降
-			for (size_t i = 0; i < faces.size(); i++)
+			for (unsigned int i = 0; i < faces.size(); i++)
 			{
 				LT.x = faces[i].x; LT.y = faces[i].y;
 				RB = { faces[i].x + faces[i].width,faces[i].y + faces[i].height };
 				Img_ROI = frame(faces[i]);
 				f_setROI = false;
 				f_ROI_successed = true;
+				start = clock();
 			}
 		}
-
 		if (f_ROI_successed)
-		{
-
+		{	
 			Img_ROI = frame(faces[0]);
-			int sum[3] = { 0 };
+			int sum = 0;
 
-			for (int i = 0; i < Img_ROI.cols; i++)
+			for (unsigned int i = 0; i < Img_ROI.cols; i++)
 			{
-				for (int j = 0; j < Img_ROI.rows; j++)
-
-					for (int k = 0; k < 3; k++)
-						sum[k] = sum[k] + (int)Img_ROI.at<Vec3b>(i, j)[k];
+				for (unsigned int j = 0; j < Img_ROI.rows; j++)
+						sum = sum + (int)Img_ROI.at<Vec3b>(i, j)[1];
 			}
-			for (int i = 0; i < 3; i++)
-			{
-				BGR_average[i] = (float)sum[i] / (float)(Img_ROI.rows*Img_ROI.cols);
-				BGRData[dataNum][i] = (float)sum[i] / (float)(Img_ROI.rows*Img_ROI.cols);
-				
-			}
-			dataNum++;
 			
+	        BGRData[dataNum] = (float)sum / (float)(Img_ROI.rows*Img_ROI.cols);		
+			
+			dataNum++;	
 		}
 		
 		cv::rectangle(frame, LT, RB, CV_RGB(255, 0, 0));
@@ -334,27 +291,20 @@ private: System::Void timer_Capture_Tick(System::Object^  sender, System::EventA
 
 private:void WriteTxt(void)
 	{
-		std::fstream fp_R;
+	
 		std::fstream fp_G;
-		std::fstream fp_B;
-		std::fstream fp_T;
-		fp_R.open("R.txt", std::ios::app);
-		fp_G.open("G.txt", std::ios::app);
-		fp_B.open("B.txt", std::ios::app);
+		std::fstream fp_T;	
+		fp_G.open("G.txt", std::ios::app);	
 		fp_T.open("Time.txt", std::ios::app);
-		if (!fp_R || !fp_G || !fp_B) {//如果開啟檔案失敗，fp為0；成功，fp為非0
+		if ( !fp_G ) {//如果開啟檔案失敗，fp為0；成功，fp為非0
 			MessageBox::Show("error Writing txt");
 		}
 		for (int i = 0; i < dataNum; i++)
 		{
-			fp_B << BGRData[i][0]<<"\n";
-			fp_G << BGRData[i][1] << "\n";
-			fp_R << BGRData[i][2] << "\n";
-			fp_T << time_data[i] << "\n";
+		fp_G << BGRData[i] << "\n";
+		fp_T << time_data[i] << "\n";
 		}
-		fp_B.close();//關閉檔案
 		fp_G.close();
-		fp_R.close();
 		fp_T.close();
 	}
 private: System::Void Btn_Detect_Click(System::Object^  sender, System::EventArgs^  e) {
@@ -364,7 +314,7 @@ private: System::Void Btn_Stop_Click(System::Object^  sender, System::EventArgs^
 	f_setROI = false;
 	f_ROI_successed = false;
 	dataNum = 0;
-	BGRData[1900][3] = {0};
+
 	timer_Capture->Enabled = false;
 	timer_Capture->Stop();
 	time_total = 0;
@@ -374,38 +324,28 @@ private: System::Void Btn_analysis_Click(System::Object^  sender, System::EventA
 	compxReIm *B_compx = new compxReIm[dataNum];
 	compxReIm *G_compx = new compxReIm[dataNum];
 	compxReIm *R_compx = new compxReIm[dataNum];
-	float *BGR_average = new float[3];
-	for(unsigned int i=0;i<3;i++)//記算平均
-		for (unsigned int j = 0; j < dataNum; j++)
-		{
-			BGR_average[i] = BGR_average[i]+BGRData[j][i]/ dataNum;
-		}
+	float BGR_average=0;
+
+	for (unsigned int i = 0; i < dataNum; i++)
+	{
+		BGR_average = BGR_average+BGRData[i]/ dataNum;
+	}
 	
 	for (int i = 0; i < dataNum; i++)//資料減平均,轉成compx
 	{
-		B_compx[i].re = BGRData[i][0] - BGR_average[0];
-		G_compx[i].re = BGRData[i][1] - BGR_average[1];
-		R_compx[i].re = BGRData[i][2] - BGR_average[2];
+		G_compx[i].re = BGRData[i]- BGR_average;
 	}
-	delete [] BGR_average;
-
-	compxReIm *B_DFT_RI = new compxReIm[dataNum];compxReIm *G_DFT_RI = new compxReIm[dataNum]; compxReIm *R_DFT_RI = new compxReIm[dataNum];
 	
-	DFT(dataNum, B_compx, B_DFT_RI);DFT(dataNum, G_compx, G_DFT_RI);DFT(dataNum, R_compx, R_DFT_RI);
+	compxReIm *G_DFT_RI = new compxReIm[dataNum];
+	
+	DFT(dataNum, G_compx, G_DFT_RI);
 
-	delete[] B_compx; delete[] G_compx; delete[] R_compx;
-	compxATheta *B_DFT_AT = new compxATheta[dataNum]; compxATheta *G_DFT_AT = new compxATheta[dataNum]; compxATheta *R_DFT_AT = new compxATheta[dataNum];
+	 delete[] G_compx;
+	 compxATheta *G_DFT_AT = new compxATheta[dataNum];
 	for (unsigned int i = 0; i < dataNum; i++)
 	{
-		B_DFT_AT[i].A = sqrt(pow(B_DFT_RI[i].re, 2) + pow(B_DFT_RI[i].im, 2));
-		B_DFT_AT[i].theta = atan2(B_DFT_RI[i].im, B_DFT_RI[i].re);
-		G_DFT_AT[i].A = sqrt(pow(G_DFT_RI[i].re, 2) + pow(G_DFT_RI[i].im, 2));
-		G_DFT_AT[i].theta = atan2(G_DFT_RI[i].im, G_DFT_RI[i].re);
-		R_DFT_AT[i].A = sqrt(pow(R_DFT_RI[i].re, 2) + pow(R_DFT_RI[i].im, 2));
-		R_DFT_AT[i].theta = atan2(R_DFT_RI[i].im, R_DFT_RI[i].re);
+		G_DFT_AT[i].A = sqrt(pow(G_DFT_RI[i].re, 2) + pow(G_DFT_RI[i].im, 2));	
 	}
-			
-
 }
 private:void DFT(int data_no, compxReIm *in_data, compxReIm *out_data)
 {
